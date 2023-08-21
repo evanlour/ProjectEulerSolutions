@@ -1,5 +1,9 @@
 public class Main {
     public static void main(String[] args){
-        ProjectEulerSolutions.problem10();
+        try{
+            Solutions.problem10();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

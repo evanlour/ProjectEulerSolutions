@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.ArrayList;
 
-public class ProjectEulerSolutions {
+public class Solutions {
     public static void main(String[] args){
         try{
             problem11();
