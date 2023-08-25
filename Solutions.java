@@ -4,13 +4,6 @@ import java.net.*;
 import java.util.ArrayList;
 
 public class Solutions {
-    public static void main(String[] args){
-        try{
-            problem11();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
 
     public static void problem1(){
         final int MAXVAL = 1000;//Sett  ing the max value
@@ -317,5 +310,59 @@ public class Solutions {
             }
         }
         System.out.println("The max value is " + max);
+    }
+
+    public static void problem12(){
+        int divisors = 0;
+        boolean numFound = false;
+        int currentNum = 1;
+        int increment = 2;
+        while(!numFound){
+            divisors = 2;
+            currentNum += increment;
+            increment++;
+            int div = 2;
+            int temp = currentNum;
+            while(temp > div){
+                if(temp % div == 0){
+                    divisors++;
+                    temp = temp / div;
+                }else{
+                    div++;
+                }
+            }
+
+            if(divisors > 500){
+                numFound = true;
+            }
+            if(divisors > 250){
+                System.out.println(divisors + " " + currentNum);
+            }
+        }
+        System.out.println("The number is " + currentNum);
+    }
+
+    public static void problem13() throws Exception{
+        String site = "https://projecteuler.net/minimal=13";
+        String input = "";
+        String numbers = "";
+        URL url = new URL(site);
+        BufferedReader in = new BufferedReader(
+        new InputStreamReader(url.openStream()));
+        int line = 1;
+        while((input = in.readLine()) != null){
+            if(line >= 3){
+                numbers += input;
+            }
+            line++;
+        }
+        in.close();
+        numbers = numbers.replaceAll("<br>", "");
+        numbers = numbers.replace("</div>", "");
+        System.out.println(numbers + " " + numbers.length());
+        int[] finalNum = new int[152];
+        for(int i = 0; i < numbers.length(); i++){
+            
+        }
     }
 }
