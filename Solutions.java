@@ -361,8 +361,24 @@ public class Solutions {
         numbers = numbers.replace("</div>", "");
         System.out.println(numbers + " " + numbers.length());
         int[] finalNum = new int[152];
-        for(int i = 0; i < numbers.length(); i++){
-            
+        for(int i = 0; i < numbers.length(); i = i + 50){
+            for(int j = 0; j < 50; j++){
+                finalNum[49 - j] = finalNum[49 - j] + Integer.valueOf(numbers.substring(i + j, i + j + 1));
+            }
         }
+
+        for(int i = 0; i < finalNum.length - 1; i++){
+            finalNum[i + 1] = finalNum[i + 1] + finalNum[i] / 10;
+            finalNum[i] = finalNum[i] % 10;
+        }
+        String answer = "";
+        for(int i = 0; i < finalNum.length; i++){
+            answer = finalNum[i] + answer;
+        }
+        while(answer.substring(0, 1).equals("0")){
+            answer = answer.substring(1);
+        }
+        answer = answer.substring(0, 10);
+        System.out.println(answer);
     }
 }
