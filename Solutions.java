@@ -381,4 +381,36 @@ public class Solutions {
         answer = answer.substring(0, 10);
         System.out.println(answer);
     }
+
+    public static void problem14(){
+        final int  limit = 1000000;
+        int[] cache = new int[1000000];
+        int max = Integer.MIN_VALUE;
+        int savedVal = 0;
+        for(int i = 3; i < limit; i++){
+            System.out.println(i);
+            int count = 0;
+            long val = i + 0;
+            while(val != 1){
+                if(val < 1000000){
+                    if(cache[(int)val] != 0){
+                    count+= cache[(int)val];
+                    break;
+                    }
+                }
+                if(val % 2 == 0){
+                    val = val / 2;
+                }else{
+                    val = 3 * val + 1;
+                }
+                count++;
+            }
+            cache[i] = count;
+            if(count > max){
+                max = count;
+                savedVal = i;
+            }
+        }
+        System.out.println("Number " + savedVal + " with count " + max);
+    }
 }
