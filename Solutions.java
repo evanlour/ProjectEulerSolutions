@@ -4,6 +4,8 @@ import java.net.*;
 import java.util.ArrayList;
 
 public class Solutions {
+    //There will be temporary variables for recursive functions
+    static int temp1 = 0;
 
     public static void problem1(){
         final int MAXVAL = 1000;//Sett  ing the max value
@@ -212,6 +214,7 @@ public class Solutions {
     }
 
     public static void problem11() throws Exception{
+        //First we will read and filter the input
         String site = "https://projecteuler.net/minimal=11";
         String val = "";
         int[][] table = new int[20][20];
@@ -247,24 +250,25 @@ public class Solutions {
 
 
         int max = Integer.MIN_VALUE;
-
+        
+        //Now we find the biggest product available
         for(int i = 0; i < 20; i++){
             for(int j = 0; j < 20; j++){
 
-                if(j <= 16){
+                if(j <= 16){//Downwards product
                     int tempVal = table[i][j] * table[i][j + 1] * table[i][j + 2] * table[i][j + 3];
                     if(tempVal > max){
                         max = tempVal;
                     }
 
-                    if(i <= 16){
+                    if(i <= 16){//downwards right product
                         tempVal = table[i][j] * table[i + 1][j + 1] * table[i + 2][j + 2] * table[i + 3][j + 3];
                         if(tempVal > max){
                             max = tempVal;
                         }
                     }
 
-                    if(i >= 3){
+                    if(i >= 3){//downwards left product
                         tempVal = table[i][j] * table[i - 1][j + 1] * table[i - 2][j + 2] * table[i - 3][j + 3];
                         if(tempVal > max){
                             max = tempVal;
@@ -272,13 +276,13 @@ public class Solutions {
                     }
                 }
 
-                if(j >= 3){
+                if(j >= 3){//upwards product
                     int tempVal = table[i][j] * table[i][j - 1] * table[i][j - 2] * table[i][j - 3];
                     if(tempVal > max){
                         max = tempVal;
                     }
 
-                    if(i <= 16){
+                    if(i <= 16){//upwards right product
                         tempVal = table[i][j] * table[i + 1][j - 1] * table[i + 2][j - 2] * table[i + 3][j - 3];
                         if(tempVal > max){
                             max = tempVal;
@@ -313,6 +317,8 @@ public class Solutions {
     }
 
     public static void problem12(){
+        //We will check each number individually to see if it has
+        //at least 500 divisors
         int divisors = 0;
         boolean numFound = false;
         int currentNum = 1;
@@ -335,14 +341,12 @@ public class Solutions {
             if(divisors > 500){
                 numFound = true;
             }
-            if(divisors > 250){
-                System.out.println(divisors + " " + currentNum);
-            }
         }
         System.out.println("The number is " + currentNum);
     }
 
     public static void problem13() throws Exception{
+        //first we read and filter the input
         String site = "https://projecteuler.net/minimal=13";
         String input = "";
         String numbers = "";
@@ -360,6 +364,8 @@ public class Solutions {
         numbers = numbers.replaceAll("<br>", "");
         numbers = numbers.replace("</div>", "");
         System.out.println(numbers + " " + numbers.length());
+        //Now we will save the number whole sum here
+        //and we will add each number to its respective array position
         int[] finalNum = new int[152];
         for(int i = 0; i < numbers.length(); i = i + 50){
             for(int j = 0; j < 50; j++){
@@ -367,11 +373,14 @@ public class Solutions {
             }
         }
 
+        //Now we normalize the array
         for(int i = 0; i < finalNum.length - 1; i++){
             finalNum[i + 1] = finalNum[i + 1] + finalNum[i] / 10;
             finalNum[i] = finalNum[i] % 10;
         }
         String answer = "";
+        //Lastly we convert the final product to a string
+        //and we hold the first 10 non zero numbers
         for(int i = 0; i < finalNum.length; i++){
             answer = finalNum[i] + answer;
         }
@@ -384,9 +393,13 @@ public class Solutions {
 
     public static void problem14(){
         final int  limit = 1000000;
+        //We create an array that will hold all previous number
+        //values so we minimize function repetition for already
+        //found numbers
         int[] cache = new int[1000000];
         int max = Integer.MIN_VALUE;
         int savedVal = 0;
+        //Now we check each number individually
         for(int i = 3; i < limit; i++){
             System.out.println(i);
             int count = 0;
@@ -412,5 +425,35 @@ public class Solutions {
             }
         }
         System.out.println("Number " + savedVal + " with count " + max);
+    }
+
+    public static void problem15(){
+        //In order to calculate the number of routes we can do the following:
+        //as we need to get to position x=20 y=20 we can calculate the number
+        //routes there are to get the adjacent available tiles and add them
+        //So all we need to do is create an array with all the tiles that x = 0 or y = 0
+        //to be 1 and then calculate the other positions by adding the know adjacent tiles
+        //This problem took me a couple of times as recursion methods are simply too proccesing heavy
+        //It reminds me of the Pascal's Triangle
+        final int arrX = 21;
+        final int arrY = 21;
+        //We first initiate the array
+        long[][] arr = new long[arrY][arrX];
+        //then we fill its upper and left sides with 1's
+        for(int i = 0; i < arrX; i++){
+            arr[0][i] = 1;
+        }
+        for(int j = 0; j < arrY; j++){
+            arr[j][0] = 1;
+        }
+        //Now we set each tile's number equivalent to the sum
+        //of this above and left
+        for(int i = 1; i < arrX; i++){
+            for(int j = 1; j < arrY; j++){
+                arr[j][i] = arr[j - 1][i] + arr[j][i - 1];
+            }
+        }
+        long answer = arr[arrY - 1][arrX - 1];
+        System.out.println("The number is " + answer);
     }
 }
