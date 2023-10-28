@@ -456,4 +456,32 @@ public class Solutions {
         long answer = arr[arrY - 1][arrX - 1];
         System.out.println("The number is " + answer);
     }
+
+    public static void problem16(){
+        int[] array = new int[1000];
+        //We will do the multiplication inside the array
+        array[0] = 2;
+        int len = 1;
+        for(int i = 0; i < 999; i++){//for each array part multiply by 2
+                                    //And then check if the sum is >= 10
+            int index = 0;
+            while(index <= i){
+                array[index] = array[index] * 2;
+                index++;
+            }
+            len = index;
+            for(int j = 0; j < 999; j++){
+                if(array[j] >= 10){
+                    array[j] = array[j] - 10;
+                    array[j + 1] = array[j + 1] + 1;
+                }
+            }
+        }
+        //Adding up the digits
+        int answer = 0;
+        for(int i = 0; i < len; i++){
+            answer = answer + array[i];
+        }
+        System.out.println("The answer is " + answer);
+    }
 }
