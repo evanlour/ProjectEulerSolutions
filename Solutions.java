@@ -484,4 +484,26 @@ public class Solutions {
         }
         System.out.println("The answer is " + answer);
     }
+
+    public static void problem17(){
+        String[] arr = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+        String[] tens = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+        int count = 11;//starting with one thousand added
+        for(int i = 1; i < 20; i++){
+            count = count + arr[i].length();
+        }
+        for(int i = 20; i < 1000; i++){
+            if(i % 100 < 20){//First we will address the first 2 digits
+                count = count + arr[i % 100].length();
+            }else{
+                count = count + arr[i % 10].length() + tens[(i % 100) / 10].length();
+            }
+            //Then we address the hundreds
+            if(i / 100 != 0){
+                count = count + "hundred".length() + arr[i / 100].length();
+                if(i % 100 != 0){count = count + "and".length();};
+            }
+        }
+        System.out.println("The final count is " + count);
+    }
 }
